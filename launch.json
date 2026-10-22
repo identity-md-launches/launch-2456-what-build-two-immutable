@@ -1,0 +1,17 @@
+{
+  "kind": "evm_contracts",
+  "contracts": [
+    {
+      "contract": "HookListingRegistry",
+      "constructorArgs": []
+    },
+    {
+      "contract": "FeaturedPlacementsV2",
+      "constructorArgs": [
+        "$owner",
+        "$contract:HookListingRegistry"
+      ]
+    }
+  ],
+  "notes": "The Hooks Store on Ethereum: HookListingRegistry is a free, permissionless listing registry with no administrator. FeaturedPlacementsV2 uses that registry and an explicit $owner with two-step ownership transfer. Both contracts are non-upgradeable, with no proxy or upgrade path. After deployment, the owner must call configureToken once with the existing 18-decimal Ethereum IMD token at 0xd34a99bc0f67ae1bbd63c660e6d0b0dd03e263b7 and setProceedsRecipient to the owner's own wallet. These are separate owner actions, not deployment calls or constructor dependencies. No token, pool or liquidity is created; deployment requires no ETH funding and makes no payments. Each listing may have one live #ad placement, costing 100000000000000000 base units (0.1 IMD) for 24 hours. Anyone may boost a live placement from their deposited balance. Cancellation refunds the unearned base price pro rata to the original payer and credits the earned base plus all nonrefundable boosts to the recipient pinned at purchase; settlement credits the full base plus boosts to that recipient. Depositors withdraw their own available balances and recipients withdraw their own earned proceeds. Boosts remain in totalEscrowed until closure; accountedBalance equals totalAvailable + totalEscrowed + totalProceeds. rankOf and featured expose base-plus-boost totals for clients to sort descending, breaking ties by lower placement ID."
+}
